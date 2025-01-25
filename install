@@ -1,0 +1,44 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+export TERMUX_ADB;
+
+pkg install fakeroot || exit;
+
+if [ ! "$TERMUX_ADB" ]; then
+    TERMUX_ADB="$(command -v termux-adb)"
+fi
+
+# Add adb to termux repo
+apt-get update
+apt-get  --assume-yes upgrade
+apt-get  --assume-yes install coreutils gnupg wget
+if [ ! -f "$PREFIX/etc/apt/sources.list.d/termux-adb.list" ]; then
+  mkdir -p $PREFIX/etc/apt/sources.list.d
+  echo -e "deb https://nohajc.github.io termux extras" > $PREFIX/etc/apt/sources.list.d/termux-adb.list
+  wget -qP $PREFIX/etc/apt/trusted.gpg.d https://nohajc.github.io/nohajc.gpg
+  apt update
+  apt install termux-adb
+else
+  echo "Repo already installed"
+  apt install termux-adb
+fi
+
+# Create executable
+cat > $PREFIX/bin/adb <<- EOF
+#!/data/data/com.termux/files/usr/bin/bash
+
+export TERMUX_ADB;
+
+if [ ! "$TERMUX_ADB" ]; then
+    TERMUX_ADB="$(command -v termux-adb)";
+fi
+
+if [ ! -f "$TERMUX_ADB" ]; then
+    echo "Could not find $TERMUX_ADB";
+    exit 1;
+fi
+
+ANDROID_NO_USE_FWMARK_CLIENT=1 fakeroot $TERMUX_ADB $@;
+EOF
+chmod 700 $PREFIX/bin/adb
+echo "done!"
