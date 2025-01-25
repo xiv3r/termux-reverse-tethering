@@ -1,9 +1,13 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-export TERMUX_ADB;
+# Install dependencies
+apt update 
+apt install git wget termux-api fakeroot -y
+git clone https://github.com/xiv3r/termux-reverse-tethering.git
+cd termux-reverse-tethering
 
-apt update
-apt install termux-api fakeroot || exit;
+###
+export TERMUX_ADB;
 
 if [ ! "$TERMUX_ADB" ]; then
     TERMUX_ADB="$(command -v termux-adb)"
