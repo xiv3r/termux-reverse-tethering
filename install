@@ -40,5 +40,7 @@ fi
 
 ANDROID_NO_USE_FWMARK_CLIENT=1 fakeroot $TERMUX_ADB $@;
 EOF
+
 chmod 700 $PREFIX/bin/adb
-echo "done!"
+
+echo "Done!"
