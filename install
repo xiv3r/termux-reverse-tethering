@@ -4,8 +4,6 @@ cd $HOME
 # Install dependencies
 apt --assume-yes upgrade -y
 apt --assume-yes install git termux-api fakeroot coreutils gnupg
-git clone https://github.com/xiv3r/termux-reverse-tethering.git
-cd termux-reverse-tethering
 
 export TERMUX_ADB;
 
@@ -40,5 +38,8 @@ ANDROID_NO_USE_FWMARK_CLIENT=1 fakeroot $TERMUX_ADB $@;
 EOF
 
 chmod 700 $PREFIX/bin/adb
+
+git clone https://github.com/xiv3r/termux-reverse-tethering.git
+cd termux-reverse-tethering
 
 echo "Done!"
