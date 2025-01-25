@@ -4,7 +4,7 @@ cd $HOME
 # Install dependencies
 apt update
 apt --assume-yes upgrade -y
-apt --assume-yes install git wget termux-adb termux-api fakeroot coreutils gnupg
+apt --assume-yes install git wget termux-api fakeroot coreutils gnupg
 git clone https://github.com/xiv3r/termux-reverse-tethering.git
 cd termux-reverse-tethering
 
