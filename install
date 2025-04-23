@@ -2,8 +2,8 @@
 
 cd $HOME
 # Install dependencies
-apt --assume-yes upgrade -y
-apt --assume-yes install git termux-api fakeroot coreutils gnupg
+apt upgrade -y
+apt install git termux-api fakeroot coreutils gnupg -y
 
 export TERMUX_ADB;
 
